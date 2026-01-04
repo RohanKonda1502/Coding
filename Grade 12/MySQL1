@@ -1,0 +1,75 @@
+create database MySQL1;
+use MySQL1;
+
+CREATE TABLE Item (
+    ICode VARCHAR(5),
+    IName VARCHAR(30),
+    Price INT,
+    Color VARCHAR(15),
+    VCode VARCHAR(5)
+);
+
+INSERT INTO Item VALUES
+('S001', 'Mobile Phones', 30000, 'Silver', 'P01'),
+('S002', 'Refrigerator', 20000, 'Cherry', 'P02'),
+('S003', 'TV', 45000, 'Black', 'P03'),
+('S004', 'Washing Machine', 12000, 'White', 'P04'),
+('S005', 'Air Conditioner', 50000, 'White', 'P05');
+
+CREATE TABLE Vendor (
+    VCode VARCHAR(5),
+    VName VARCHAR(20)
+);
+
+INSERT INTO Vendor VALUES
+('P01', 'Rahul'),
+('P02', 'Mukesh'),
+('P03', 'Rohan'),
+('P04', 'Kapil');
+
+select * from Vendor;
+select * from Item;
+
+##1
+#To display ICode, IName and VName of all the vendors who manufacture “Refrigerator”.
+SELECT I.ICode, I.IName, V.VName 
+FROM Item AS I, Vendor AS V 
+WHERE I.VCode = V.VCode AND I.IName = "Refrigerator";
+
+##2
+#To display IName, ICode, VName and price of all the products whose price is greater than 23000
+SELECT I.IName, I.ICode, V.VName, I.Price
+FROM Item AS I, Vendor AS V
+WHERE I.Price > 23000 AND I.VCode = V.VCode;
+
+##3
+#To display the Name of the products whose Name ends with the character “r”.
+SELECT I.IName FROM Item AS I
+WHERE I.IName LIKE "%r";
+
+##4
+#To display all the records in Item table sorted in ascending order of VCode.
+SELECT * FROM Item 
+ORDER BY VCode;
+
+##5
+#To display VName, IName manufactured by vendor whose code is “P04”.
+SELECT V.VName, I.IName
+FROM Vendor AS V, Item AS I
+WHERE V.VCode = I.VCode AND V.VCode = "P04";
+
+##6
+#To display the Colour and total count of product for each colour  from Item table.
+SELECT Color, COUNT(Color)
+FROM Item
+GROUP BY Color;
+
+##7
+#To display the details of products whose Price is less than 30000 from Item table.
+SELECT * FROM Item
+WHERE Price < 30000;
+
+##8
+#To display the details of products in ascending order of price from Item table.
+SELECT * FROM Item
+ORDER BY Price;
