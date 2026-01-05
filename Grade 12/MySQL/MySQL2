@@ -1,0 +1,63 @@
+USE MySQL;
+
+CREATE TABLE Doctors (
+    DocID INT,
+    DocName VARCHAR(30),
+    Department VARCHAR(20),
+    NoofOpdDays INT
+);
+
+INSERT INTO Doctors VALUES
+(101, 'J K Mishra', 'Ortho', 3),
+(102, 'Mahesh Tripathi', 'ENT', 4),
+(103, 'Ravi Kumar', 'Neuro', 5),
+(104, 'Mukesh Jain', 'Physio', 3);
+
+CREATE TABLE Patients (
+    PatNo INT,
+    PatName VARCHAR(30),
+    Department VARCHAR(20),
+    DocID INT
+);
+
+INSERT INTO Patients VALUES
+(1, 'Payal', 'ENT', 102),
+(2, 'Naveen', 'Ortho', 101),
+(3, 'Rakesh', 'Neuro', 103),
+(4, 'Atul', 'Physio', 104);
+
+select * from Doctors;
+select * from Patients;
+
+##1
+#To display the PatNo, PatName and corresponding DocName for each patient.
+SELECT PatNo, PatName, DocName FROM Patients AS P, Doctors AS D WHERE D.DocID = P.DocID;
+
+## 2
+SELECT count(DISTINCT Department) FROM Patients;
+
+## 3 
+SELECT * FROM Doctors 
+WHERE NoofOpdDays > 3;
+
+## 4
+SELECT DocId, Docname FROM Doctors
+WHERE Department = "ENT";
+
+## 5
+SELECT Doctors.DocId, Doctors.DocName, Doctors.Department, Patients.PatName
+FROM Doctors, Patients
+WHERE Doctors.DocId = Patients.DocId 
+AND Doctors.DocId IN (101,103);
+
+## 6 
+SELECT * FROM Doctors
+WHERE DocName LIKE "M%";
+
+## 7 
+SELECT DocID, DocName FROM Doctors
+WHERE Department = "Ortho";
+
+## 8
+SELECT * FROM Doctors
+WHERE NoofOpdDays < 3;
